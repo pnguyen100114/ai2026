@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="StudyMate - trợ lý học tập cá nhân cho học sinh">
+    <title>StudyMate | Trợ lý học tập</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-mark">S</div>
+                <div>
+                    <strong>StudyMate</strong>
+                    <span>Học thông minh hơn</span>
+                </div>
+            </div>
+
+            <nav class="main-nav" aria-label="Điều hướng chính">
+                <button class="nav-item active" data-view="overview"><span>⌂</span>Tổng quan</button>
+                <button class="nav-item" data-view="chat"><span>✦</span>Trợ lý AI</button>
+                <button class="nav-item" data-view="flashcards"><span>▣</span>Flashcard</button>
+                <button class="nav-item" data-view="plan"><span>◷</span>Kế hoạch học</button>
+            </nav>
+
+            <div class="sidebar-subjects">
+                <div class="section-label">Môn học của bạn</div>
+                <button class="subject-link active" data-subject="Toán"><i class="subject-dot math"></i>Toán <b>12</b></button>
+                <button class="subject-link" data-subject="Ngữ văn"><i class="subject-dot literature"></i>Ngữ văn <b>8</b></button>
+                <button class="subject-link" data-subject="Tiếng Anh"><i class="subject-dot english"></i>Tiếng Anh <b>15</b></button>
+                <button class="subject-link" data-subject="Vật lý"><i class="subject-dot physics"></i>Vật lý <b>6</b></button>
+            </div>
+
+            <div class="sidebar-bottom">
+                <div class="streak-card"><span class="streak-icon">🔥</span><div><strong>5 ngày liên tiếp</strong><small>Tiếp tục phát huy nhé!</small></div></div>
+                <div class="profile"><div class="avatar">MH</div><div><strong>Minh Hoàng</strong><small>Lớp 12A1</small></div><button aria-label="Tùy chọn tài khoản">•••</button></div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <button class="mobile-menu" aria-label="Mở menu">☰</button>
+                <div class="breadcrumb"><span>Thứ Hai, 05 tháng 09</span><strong>Chào buổi tối, Hoàng! 👋</strong></div>
+                <div class="top-actions"><span class="ai-status top-ai-status"><i></i> AI sẵn sàng</span><button class="icon-button" aria-label="Thông báo">♧<span class="notification-dot"></span></button><button class="avatar small">MH</button></div>
+            </header>
+
+            <section id="overview-view" class="view active-view">
+                <div class="hero">
+                    <div><span class="eyebrow">BẢNG ĐIỀU KHIỂN CỦA BẠN</span><h1>Sẵn sàng chinh phục<br><em>mục tiêu hôm nay?</em></h1><p>Hãy dành 25 phút để học một điều mới. Bạn đang tiến bộ rất tốt!</p><button class="primary-button" data-view-target="chat">Bắt đầu học <span>→</span></button></div>
+                    <div class="hero-illustration"><div class="sun"></div><div class="book-shape"></div><div class="plant">🌿</div><div class="hero-star">✦</div></div>
+                </div>
+
+                <div class="section-heading"><div><h2>Tiến độ học tập</h2><p>Tổng quan kết quả của bạn trong tuần này</p></div><button class="outline-button" data-view-target="plan">Xem kế hoạch <span>→</span></button></div>
+                <div class="stats-grid">
+                    <div class="stat-card"><div class="stat-icon purple">◷</div><div><span>Thời gian học</span><strong>12.5 <small>giờ</small></strong><label class="positive">↗ 18% <i>so với tuần trước</i></label></div></div>
+                    <div class="stat-card"><div class="stat-icon green">✓</div><div><span>Bài đã hoàn thành</span><strong>24 <small>bài</small></strong><label class="positive">↗ 12% <i>so với tuần trước</i></label></div></div>
+                    <div class="stat-card"><div class="stat-icon orange">♨</div><div><span>Điểm trung bình</span><strong>8.6 <small>/ 10</small></strong><label class="positive">↗ 0.4 <i>so với tuần trước</i></label></div></div>
+                </div>
+
+                <div class="content-grid">
+                    <div class="panel subjects-panel"><div class="panel-heading"><div><h2>Tiếp tục học</h2><p>Các môn học gần đây</p></div><button class="more-button">Xem tất cả →</button></div>
+                        <div class="subject-progress"><div class="subject-info"><div class="subject-icon math-bg">∑</div><div><strong>Toán học</strong><span>Đại số • Bài 4</span></div><b>72%</b></div><div class="progress-track"><i style="width:72%"></i></div></div>
+                        <div class="subject-progress"><div class="subject-info"><div class="subject-icon english-bg">A</div><div><strong>Tiếng Anh</strong><span>Reading • Unit 6</span></div><b>54%</b></div><div class="progress-track"><i class="blue" style="width:54%"></i></div></div>
+                        <div class="subject-progress"><div class="subject-info"><div class="subject-icon physics-bg">⚛</div><div><strong>Vật lý</strong><span>Điện học • Bài 2</span></div><b>31%</b></div><div class="progress-track"><i class="orange" style="width:31%"></i></div></div>
+                    </div>
+                    <div class="panel activity-panel"><div class="panel-heading"><div><h2>Hoạt động gần đây</h2><p>Những gì bạn đã làm</p></div><button class="more-button">•••</button></div>
+                        <div class="activity"><span class="activity-icon purple">✦</span><div><strong>Tạo 10 flashcard mới</strong><small>Toán học • 15 phút trước</small></div><b>+20 XP</b></div>
+                        <div class="activity"><span class="activity-icon green">✓</span><div><strong>Hoàn thành bài kiểm tra</strong><small>Tiếng Anh • Hôm qua</small></div><b>+50 XP</b></div>
+                        <div class="activity"><span class="activity-icon orange">▤</span><div><strong>Cập nhật kế hoạch học</strong><small>Hôm qua</small></div><b>+10 XP</b></div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="chat-view" class="view">
+                <div class="page-title"><div><span class="eyebrow">HỌC CÙNG TRỢ LÝ AI</span><h1>Trợ lý <em>StudyMate</em></h1><p>Đặt câu hỏi và nhận lời giải thích phù hợp với trình độ của bạn.</p></div><div class="ai-status"><i></i> AI đang trực tuyến</div></div>
+                <div class="chat-layout">
+                    <div class="panel chat-panel"><div class="chat-header"><div class="bot-avatar">✦</div><div><strong>StudyMate AI</strong><span>Trợ lý học tập đa môn</span></div><select id="chat-subject" aria-label="Chọn môn học"><option>Toán học</option><option>Ngữ văn</option><option>Tiếng Anh</option><option>Vật lý</option></select></div>
+                        <div id="chat-messages" class="chat-messages"><div class="message bot"><div class="message-avatar">✦</div><div><p>Chào Hoàng! Mình có thể giúp bạn học <strong>Toán học</strong> hôm nay. Bạn đang gặp khó khăn ở phần nào?</p><span>19:02</span></div></div><div class="quick-prompts"><button>Giải thích đạo hàm là gì?</button><button>Cho mình một bài tập nhé</button><button>Tóm tắt công thức quan trọng</button></div></div>
+                        <form id="chat-form" class="chat-input"><input id="chat-input" autocomplete="off" placeholder="Nhập câu hỏi của bạn..." aria-label="Nội dung câu hỏi"><button type="submit" aria-label="Gửi câu hỏi">↑</button></form>
+                    </div>
+                    <div class="panel chat-tips"><h3>Gợi ý học tập</h3><p>Hãy thử hỏi mình:</p><button data-prompt="Giải thích bài này theo cách dễ hiểu hơn">💡 Giải thích dễ hiểu hơn</button><button data-prompt="Tạo 5 câu hỏi trắc nghiệm về chủ đề này">✍ Tạo câu hỏi trắc nghiệm</button><button data-prompt="Tóm tắt kiến thức quan trọng">▤ Tóm tắt kiến thức</button><div class="tip-note">Mẹo: Câu hỏi càng cụ thể, câu trả lời càng hữu ích.</div></div>
+                </div>
+            </section>
+
+            <section id="flashcards-view" class="view">
+                <div class="page-title"><div><span class="eyebrow">GHI NHỚ DỄ DÀNG HƠN</span><h1>Bộ sưu tập <em>flashcard</em></h1><p>Biến những ghi chú ngắn thành thẻ học thông minh.</p></div><button class="primary-button" id="new-deck-button">+ Tạo bộ thẻ mới</button></div>
+                <div class="flashcard-create panel"><div class="create-icon">✦</div><div><h2>Tạo flashcard bằng AI</h2><p>Dán nội dung bài học, công thức hoặc từ vựng của bạn vào đây.</p></div><textarea id="flashcard-source" placeholder="Ví dụ: Quang hợp là quá trình thực vật sử dụng ánh sáng để tổng hợp chất hữu cơ từ CO₂ và nước..."></textarea><div class="create-row"><select id="flashcard-subject" aria-label="Môn học flashcard"><option>Toán học</option><option>Ngữ văn</option><option>Tiếng Anh</option><option>Vật lý</option></select><button class="primary-button" id="generate-cards">Tạo flashcard <span>✦</span></button></div><div id="flashcard-result" class="flashcard-result"></div></div>
+                <div class="section-heading compact"><div><h2>Bộ thẻ của bạn</h2><p>Ôn tập để ghi nhớ lâu hơn</p></div><div class="filter-pills"><button class="selected">Tất cả</button><button>Gần đây</button></div></div>
+                <div class="deck-grid"><div class="deck-card"><div class="deck-top purple-bg"><span>∑</span><b>12 thẻ</b></div><h3>Đạo hàm cơ bản</h3><p>Toán học • Cập nhật hôm nay</p><div class="deck-footer"><span>Đã thuộc 7/12</span><button>Ôn tập →</button></div></div><div class="deck-card"><div class="deck-top blue-bg"><span>EN</span><b>15 thẻ</b></div><h3>English Vocabulary - Unit 6</h3><p>Tiếng Anh • 2 ngày trước</p><div class="deck-footer"><span>Đã thuộc 9/15</span><button>Ôn tập →</button></div></div><div class="deck-card add-deck"><span>+</span><strong>Tạo bộ thẻ mới</strong><small>Bắt đầu từ ghi chú của bạn</small></div></div>
+            </section>
+
+            <section id="plan-view" class="view">
+                <div class="page-title"><div><span class="eyebrow">LỘ TRÌNH CỦA BẠN</span><h1>Kế hoạch <em>học tập</em></h1><p>Nhập điểm số để StudyMate đề xuất lịch học phù hợp.</p></div><span class="plan-date">Tuần 05/09 - 11/09</span></div>
+                <div class="plan-layout"><div class="panel score-panel"><div class="panel-heading"><div><h2>Điểm số gần đây</h2><p>Giúp AI hiểu môn nào cần ưu tiên</p></div><span class="required">* Bắt buộc</span></div><form id="score-form"><label>Toán học <span>/ 10</span><input type="number" min="0" max="10" step="0.1" name="math" value="7.5" required></label><label>Ngữ văn <span>/ 10</span><input type="number" min="0" max="10" step="0.1" name="literature" value="8.4" required></label><label>Tiếng Anh <span>/ 10</span><input type="number" min="0" max="10" step="0.1" name="english" value="6.8" required></label><label>Vật lý <span>/ 10</span><input type="number" min="0" max="10" step="0.1" name="physics" value="7.2" required></label><button class="primary-button full" type="submit">Tạo kế hoạch cá nhân <span>✦</span></button></form></div>
+                    <div class="panel generated-plan"><div class="plan-heading"><span class="plan-spark">✦</span><div><h2>Kế hoạch đề xuất</h2><p>Dựa trên điểm số của bạn</p></div></div><div id="plan-content"><div class="plan-alert"><strong>🎯 Ưu tiên Tiếng Anh</strong><span>Điểm hiện tại thấp hơn mục tiêu 1.2 điểm</span></div><div class="schedule-item"><span>THỨ 2 • 19:00 - 19:45</span><strong>Ôn từ vựng Tiếng Anh - Unit 6</strong><small>15 flashcard + 10 phút luyện đọc</small><i>45’</i></div><div class="schedule-item"><span>THỨ 3 • 19:00 - 19:45</span><strong>Luyện tập Toán - Đạo hàm</strong><small>Hoàn thành 5 bài tập cơ bản</small><i>45’</i></div><div class="schedule-item"><span>THỨ 5 • 19:00 - 19:30</span><strong>Ôn Vật lý - Điện học</strong><small>Xem lại công thức và làm quiz</small><i>30’</i></div><div class="plan-progress"><div><span>Mục tiêu tuần này</span><strong>3/5 buổi</strong></div><div class="progress-track"><i style="width:60%"></i></div></div></div></div></div>
+            </section>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
