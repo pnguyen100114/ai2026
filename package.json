@@ -6,6 +6,8 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "@teachablemachine/pose": "^0.8.6",
+    "@tensorflow/tfjs": "^1.3.1",
     "dotenv": "^16.4.7",
     "express": "^4.21.2"
   }

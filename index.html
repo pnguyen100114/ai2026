@@ -48,7 +48,7 @@
 
             <section id="overview-view" class="view active-view">
                 <div class="hero">
-                    <div><span class="eyebrow">BẢNG ĐIỀU KHIỂN CỦA BẠN</span><h1>Sẵn sàng chinh phục<br><em>mục tiêu hôm nay?</em></h1><p>Hãy dành 25 phút để học một điều mới. Bạn đang tiến bộ rất tốt!</p><button class="primary-button" data-view-target="chat">Bắt đầu học <span>→</span></button></div>
+                    <div><span class="eyebrow">BẢNG ĐIỀU KHIỂN CỦA BẠN</span><h1>Sẵn sàng chinh phục<br><em>mục tiêu hôm nay?</em></h1><p>Hãy dành 25 phút để học một điều mới. Bạn đang tiến bộ rất tốt!</p><button class="primary-button" id="btn-start-study" data-view-target="chat">Bắt đầu học <span>→</span></button></div>
                     <div class="hero-illustration"><div class="sun"></div><div class="book-shape"></div><div class="plant">🌿</div><div class="hero-star">✦</div></div>
                 </div>
 
@@ -98,6 +98,43 @@
             </section>
         </main>
     </div>
+    <!-- 1. Nạp thư viện AI từ CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@0.8/dist/teachablemachine-pose.min.js"></script>
+
+    <!-- 2. Khung theo dõi tư thế nổi góc màn hình -->
+<div id="ai-monitor-box" class="ai-monitor-card" style="display: none;">
+    <div class="ai-monitor-header">
+        <span class="ai-dot"></span>
+        <strong>Giám sát tư thế & tập trung</strong>
+        <button id="close-monitor-btn" title="Đóng">×</button>
+    </div>
+    <div class="canvas-wrapper">
+        <canvas id="ai-canvas" width="160" height="160"></canvas>
+    </div>
+    <div id="ai-status-text" class="status-badge status-good">Đang tải AI...</div>
+
+    <!-- Cụm phản hồi cải tiến AI -->
+    <div class="feedback-actions">
+        <button id="btn-report-wrong" class="btn-text-feedback">AI đoán sai? ⚡</button>
+    </div>
+  <div id="feedback-selector" style="display: none;" class="feedback-pop">
+    <small>Thực tế bạn đang làm gì?</small>
+    <select id="correct-label-select">
+        <option value="Khong_thang_lung">Ngồi thụng / Không thẳng lưng</option>
+        <option value="Vang_mat_nham">Vẫn ngồi đây (Báo nhầm vắng mặt)</option>
+        <option value="Tu_the_chuan">Đang ngồi học chuẩn</option>
+        <option value="Cui_viet_bai">Đang cúi viết bài</option>
+        <option value="other">Khác (Tự nhập nội dung)...</option>
+    </select>
+    <input type="text" id="custom-label-input" placeholder="Gõ hành vi thực tế vào đây..." style="display: none;">
+    <button id="btn-save-sample">Lưu mẫu sửa lỗi</button>
+</div>
+</div>
+    <!-- Script điều khiển chính -->
     <script src="app.js"></script>
+</body>
+    <script src="app.js"></script>
+    
 </body>
 </html>
