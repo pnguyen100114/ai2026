@@ -4,3 +4,137 @@
 @media(max-width:900px){.sidebar{width:210px}.main-content{width:calc(100% - 210px);padding:0 25px}.hero-illustration{opacity:.5}.content-grid,.chat-layout,.plan-layout{grid-template-columns:1fr}.chat-tips{display:none}.deck-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:650px){.sidebar{position:fixed;left:-260px;top:0;bottom:0;z-index:5;transition:left .2s}.sidebar.open{left:0}.main-content{width:100%;padding:0 16px}.mobile-menu{display:block;font-size:22px;color:#777}.topbar{height:75px}.breadcrumb strong{font-size:13px}.hero{padding:26px 23px;min-height:260px}.hero h1{font-size:21px}.hero-illustration{position:absolute;right:-65px;bottom:0;transform:scale(.8)}.stats-grid{grid-template-columns:1fr}.content-grid,.deck-grid{grid-template-columns:1fr}.page-title{align-items:flex-start;gap:15px;flex-direction:column}.page-title h1{font-size:23px}.chat-messages{min-height:330px;padding:18px 14px}.message{max-width:90%}.quick-prompts{margin-left:0}.flashcard-create{display:block}.flashcard-create textarea{margin-top:17px}.create-row{justify-content:stretch}.create-row select,.create-row button{flex:1}.plan-date{align-self:flex-start}.top-actions{gap:8px}}
 .api-key-button{color:var(--purple);border:1px solid #ddd9f8;padding:7px 10px;border-radius:7px;font-size:10px;font-weight:700}.modal-backdrop{position:fixed;inset:0;background:#2825368c;display:grid;place-items:center;padding:20px;z-index:20}.modal-backdrop[hidden]{display:none}.api-modal{width:min(430px,100%);background:#fff;border-radius:16px;padding:28px;position:relative;box-shadow:0 18px 60px #30285a40}.modal-close{position:absolute;right:17px;top:12px;font-size:24px;color:#aaa}.modal-icon{display:grid;place-items:center;width:38px;height:38px;border-radius:11px;background:var(--soft-purple);color:var(--purple);font-size:19px}.api-modal h2{font-size:18px;margin:15px 0 7px}.api-modal p{color:#92919e;font-size:11px;line-height:1.6;margin-bottom:18px}.api-modal label:not(.remember-key){display:block;font-size:11px;font-weight:700;margin-bottom:7px}.api-modal input[type=password]{width:100%;padding:11px;border:1px solid #e4e3ec;border-radius:8px;outline:0;font-size:12px}.api-modal input[type=password]:focus{border-color:var(--purple)}.remember-key{display:flex;align-items:center;gap:7px;color:#777;font-size:11px;margin-top:11px}.remember-key input{accent-color:var(--purple)}.api-warning{background:#fff7e9;color:#ac875d;border-radius:8px;font-size:10px;line-height:1.5;padding:10px;margin:15px 0}.modal-actions{display:flex;justify-content:flex-end;gap:9px}.api-modal small{display:block;color:#4ba77e;font-size:10px;margin-top:12px}.flashcard-list{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:14px}.generated-card{background:#fff;border:1px solid #e5e2f5;border-radius:9px;padding:12px}.generated-card strong{display:block;color:var(--purple);font-size:11px;margin-bottom:5px}.generated-card span{font-size:11px;line-height:1.5;color:#666}.generated-message.error{color:#c47a7a}.generated-message.loading{color:#867bd5}@media(max-width:650px){.flashcard-list{grid-template-columns:1fr}.api-key-button{font-size:9px;padding:6px}}
+/* Khung camera AI góc phải */
+.ai-monitor-card {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 180px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    padding: 10px;
+    z-index: 9999;
+    border: 2px solid #22c55e;
+    transition: border-color 0.3s ease;
+    font-family: inherit;
+}
+
+.ai-monitor-card.alert {
+    border-color: #ef4444;
+    animation: shake 0.5s ease;
+}
+
+.ai-monitor-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 11px;
+    margin-bottom: 6px;
+    color: #4b5563;
+}
+
+.ai-dot {
+    width: 7px;
+    height: 7px;
+    background-color: #22c55e;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+#close-monitor-btn {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    color: #9ca3af;
+    line-height: 1;
+}
+
+.canvas-wrapper {
+    display: flex;
+    justify-content: center;
+    background: #f3f4f6;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+#ai-canvas {
+    display: block;
+    border-radius: 8px;
+}
+
+.status-badge {
+    margin-top: 8px;
+    padding: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    border-radius: 6px;
+    background: #f0fdf4;
+    color: #16a34a;
+}
+
+.status-badge.status-warning {
+    background: #fef2f2;
+    color: #ef4444;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+}
+.feedback-actions {
+    margin-top: 6px;
+    text-align: center;
+}
+
+.btn-text-feedback {
+    background: none;
+    border: none;
+    font-size: 11px;
+    color: #6b7280;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.btn-text-feedback:hover {
+    color: #4f46e5;
+}
+
+.feedback-pop {
+    margin-top: 6px;
+    padding: 6px;
+    background: #f9fafb;
+    border-radius: 6px;
+    border: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.feedback-pop select, .feedback-pop button {
+    font-size: 11px;
+    padding: 3px 6px;
+    border-radius: 4px;
+}
+
+.feedback-pop button {
+    background: #4f46e5;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+.feedback-pop input[type="text"] {
+    font-size: 11px;
+    padding: 5px 6px;
+    border-radius: 4px;
+    border: 1px solid #d1d5db;
+    outline: none;
+    font-family: inherit;
+}
+
+.feedback-pop input[type="text"]:focus {
+    border-color: #4f46e5;
+}

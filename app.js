@@ -169,3 +169,217 @@ document.querySelector('#score-form').addEventListener('submit', async (event) =
         planContent.querySelector('.plan-alert').innerHTML = `<strong class="generated-message error">Không thể tạo kế hoạch AI</strong><span>${error.message}</span>`;
     }
 });
+// ==========================================
+// TÍNH NĂNG AI GIÁM SÁT TƯ THẾ & ĐỘ TẬP TRUNG
+// ==========================================
+const TM_MODEL_URL = "https://teachablemachine.withgoogle.com/models/L_fgQFAWQ/";
+
+let aiModel = null;
+let aiWebcam = null;
+let aiCtx = null;
+let isAiRunning = false;
+let warningTimer = null;
+
+const btnStartStudy = document.getElementById("btn-start-study");
+const monitorBox = document.getElementById("ai-monitor-box");
+const statusBadge = document.getElementById("ai-status-text");
+const canvasElem = document.getElementById("ai-canvas");
+const btnCloseMonitor = document.getElementById("close-monitor-btn");
+
+if (canvasElem) {
+    aiCtx = canvasElem.getContext("2d");
+}
+
+// Bật/tắt giám sát khi bấm nút "Bắt đầu học"
+if (btnStartStudy) {
+    btnStartStudy.addEventListener("click", async () => {
+        if (!isAiRunning) {
+            monitorBox.style.display = "block";
+            statusBadge.innerText = "Đang nạp AI...";
+            await startAiMonitor();
+            btnStartStudy.innerText = "Dừng học";
+        } else {
+            stopAiMonitor();
+            btnStartStudy.innerHTML = 'Bắt đầu học <span>→</span>';
+        }
+    });
+}
+
+if (btnCloseMonitor) {
+    btnCloseMonitor.addEventListener("click", () => {
+        stopAiMonitor();
+        if (btnStartStudy) btnStartStudy.innerHTML = 'Bắt đầu học <span>→</span>';
+    });
+}
+
+async function startAiMonitor() {
+    try {
+        if (!aiModel) {
+            const modelURL = TM_MODEL_URL + "model.json";
+            const metadataURL = TM_MODEL_URL + "metadata.json";
+            aiModel = await tmPose.load(modelURL, metadataURL);
+        }
+
+        const size = 160;
+        const flip = true; // Lật gương
+        aiWebcam = new tmPose.Webcam(size, size, flip);
+        await aiWebcam.setup();
+        await aiWebcam.play();
+
+        isAiRunning = true;
+        window.requestAnimationFrame(aiLoop);
+    } catch (err) {
+        console.error("Lỗi khởi tạo AI:", err);
+        statusBadge.innerText = "Không thể mở camera";
+    }
+}
+
+async function aiLoop() {
+    if (!isAiRunning) return;
+    aiWebcam.update();
+    await predictPose();
+    window.requestAnimationFrame(aiLoop);
+}
+
+async function predictPose() {
+    const { pose, posenetOutput } = await aiModel.estimatePose(aiWebcam.canvas);
+    const predictions = await aiModel.predict(posenetOutput);
+
+    // Vẽ video và khung xương lên màn hình
+    if (aiCtx) {
+        aiCtx.drawImage(aiWebcam.canvas, 0, 0);
+        if (pose) {
+            tmPose.drawKeypoints(pose.keypoints, 0.5, aiCtx);
+            tmPose.drawSkeleton(pose.keypoints, 0.5, aiCtx);
+        }
+    }
+
+    // Lấy nhãn có tỉ lệ chính xác cao nhất
+    let top = predictions[0];
+    for (let i = 1; i < predictions.length; i++) {
+        if (predictions[i].probability > top.probability) {
+            top = predictions[i];
+        }
+    }
+
+    handlePostureResult(top.className, top.probability);
+}
+
+// Bộ lọc thời gian 3 giây chống báo nhầm
+function handlePostureResult(className, prob) {
+    if (prob < 0.75) return;
+
+    if (className === "Tu_the_chuan") {
+        clearTimeout(warningTimer);
+        warningTimer = null;
+        monitorBox.classList.remove("alert");
+        statusBadge.className = "status-badge status-good";
+        statusBadge.innerText = "Tư thế chuẩn ✓";
+        return;
+    }
+
+    if (className === "Vang_mat") {
+        monitorBox.classList.add("alert");
+        statusBadge.className = "status-badge status-warning";
+        statusBadge.innerText = "Bạn đã rời vị trí!";
+        return;
+    }
+
+    // Các trường hợp: Cui_sat, Nghieng_lech, Xao_nhang
+    if (!warningTimer) {
+        warningTimer = setTimeout(() => {
+            monitorBox.classList.add("alert");
+            statusBadge.className = "status-badge status-warning";
+            
+            if (className === "Cui_sat") {
+                statusBadge.innerText = "⚠️ Đừng cúi quá sát!";
+            } else if (className === "Nghieng_lech") {
+                statusBadge.innerText = "⚠️ Hãy ngồi thẳng lưng!";
+            } else {
+                statusBadge.innerText = "⚠️ Hãy tập trung học!";
+            }
+        }, 3000); // Giữ sai trên 3 giây mới cảnh báo
+    }
+}
+
+function stopAiMonitor() {
+    isAiRunning = false;
+    clearTimeout(warningTimer);
+    warningTimer = null;
+    if (aiWebcam) {
+        aiWebcam.stop();
+    }
+    if (monitorBox) {
+        monitorBox.style.display = "none";
+    }
+}
+
+// ==========================================
+// CỤM XỬ LÝ PHẢN HỒI LỖI VÀ LƯU MẪU CẢI TIẾN
+// ==========================================
+const btnReportWrong = document.getElementById("btn-report-wrong");
+const feedbackSelector = document.getElementById("feedback-selector");
+const btnSaveSample = document.getElementById("btn-save-sample");
+const correctLabelSelect = document.getElementById("correct-label-select");
+const customLabelInput = document.getElementById("custom-label-input");
+
+// Bật/tắt bảng chọn
+if (btnReportWrong) {
+    btnReportWrong.addEventListener("click", () => {
+        feedbackSelector.style.display = feedbackSelector.style.display === "none" ? "flex" : "none";
+    });
+}
+
+// Ẩn/hiện ô tự nhập nội dung
+if (correctLabelSelect) {
+    correctLabelSelect.addEventListener("change", (e) => {
+        if (e.target.value === "other") {
+            customLabelInput.style.display = "block";
+            customLabelInput.focus();
+        } else {
+            customLabelInput.style.display = "none";
+        }
+    });
+}
+
+// Lưu ảnh vào thư mục Downloads
+if (btnSaveSample) {
+    btnSaveSample.addEventListener("click", () => {
+        if (!aiWebcam) return;
+
+        let finalLabel = correctLabelSelect.value;
+
+        if (finalLabel === "other") {
+            const userTyped = customLabelInput.value.trim();
+            if (!userTyped) {
+                alert("Vui lòng nhập mô tả thực tế bạn đang làm gì!");
+                return;
+            }
+            finalLabel = userTyped
+                .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                .replace(/đ/g, 'd').replace(/Đ/g, 'D')
+                .replace(/[^a-zA-Z0-9]/g, '_');
+        }
+
+        const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+        const filename = `edge_case_${finalLabel}_${timestamp}.png`;
+
+        const link = document.createElement("a");
+        link.download = filename;
+        link.href = aiWebcam.canvas.toDataURL("image/png");
+        link.click();
+
+        // Đóng giao diện phản hồi
+        feedbackSelector.style.display = "none";
+        customLabelInput.value = "";
+        customLabelInput.style.display = "none";
+        correctLabelSelect.value = "Khong_thang_lung";
+
+        statusBadge.className = "status-badge status-good";
+        statusBadge.innerText = "Đã lưu mẫu cải tiến ✓";
+
+        if (typeof triggerAiCheerUp === "function") {
+            triggerAiCheerUp(finalLabel);
+        }
+    });
+}
